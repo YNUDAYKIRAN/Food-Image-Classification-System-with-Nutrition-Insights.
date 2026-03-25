@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Food Recognition Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <h2>🍽 AI Food Recognition System</h2>
+    <span class="tag">Multi-Model Deep Learning Analyzer</span>
+</header>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+    <aside class="left">
+
+        <div class="card profile">
+            <img src="{{ url_for('static', filename='DSC_6699.JPG') }}" class="avatar">
+            <h3>YERRA NAGA UDAY KIRAN</h3>
+            <p>AI & ML Engineer</p>
+        </div>
+
+        <div class="card nutrition-card">
+            <h3>Nutrition Analysis</h3>
+            <div id="nutrition">Upload image to view nutrition</div>
+        </div>
+
+    </aside>
+
+
+    <!-- CENTER PANEL -->
+    <main class="center">
+
+        <!-- BIG UPLOAD BOX -->
+        <div class="upload-card" id="dropArea">
+
+            <h2>Upload Food Image</h2>
+
+            <label class="upload-label">
+                <input type="file" id="imageInput">
+                <div class="upload-box">
+                    <span>📤 Drag & Drop or Click to Upload</span>
+                </div>
+            </label>
+
+            <div class="btn-group">
+                <button onclick="predict('cnn')">CNN</button>
+                <button onclick="predict('resnet')">ResNet50</button>
+                <button onclick="predict('vgg16')">VGG16</button>
+            </div>
+
+            <p id="statusText">Waiting for image...</p>
+        </div>
+
+
+        <!-- PREVIEW -->
+        <div class="preview-card">
+            <div class="image-box">
+                <h4>Input</h4>
+                <img id="selectedImg" src="{{ url_for('static', filename='placeholder.png') }}">
+            </div>
+
+            <div class="image-box">
+                <h4>Prediction</h4>
+                <img id="predictedImg" src="{{ url_for('static', filename='placeholder.png') }}">
+            </div>
+        </div>
+
+
+        <!-- RESULT -->
+        <div class="card result-card" id="result">
+            <h3>Prediction Result</h3>
+            <p>No prediction yet</p>
+        </div>
+
+    </main>
+
+
+    <!-- RIGHT PANEL -->
+    <aside class="right">
+
+        <div class="card">
+            <h3>Actual Food Class</h3>
+            <select id="actualClass">
+                {% for cls in classes %}
+                <option value="{{cls}}">{{cls}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="card metrics-card">
+            <h3>Model Performance</h3>
+            <div id="metrics">Metrics will appear after prediction</div>
+        </div>
+
+    </aside>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
